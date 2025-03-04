@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build-storybook": "build-storybook -s public",
+    "build-storybook": "storybook build --docs",
     "serve-storybook": "serve storybook-static",
     "start": "next start",
     "lint": "next lint",
