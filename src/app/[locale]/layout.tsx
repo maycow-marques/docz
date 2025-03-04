@@ -5,6 +5,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 
+import { PageLoadingProvider } from "@/components/providers/PageLoadingProvider";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { routing } from "@/i18n/routing";
 
@@ -29,9 +30,11 @@ export default async function RootLayout({ children, params }: Props) {
   const messages = await getMessages();
   return (
     <html lang={locale} className="scroll-smooth">
-      <body className={`${plusJakartaSans.variable} font-sans antialiased`}>
+      <body className={`${plusJakartaSans.variable} bg-gray-100 font-sans antialiased`}>
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <ThemeProvider>
+            <PageLoadingProvider>{children}</PageLoadingProvider>
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
