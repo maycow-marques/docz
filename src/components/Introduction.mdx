@@ -1,0 +1,192 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Introducao" />
+
+# 🌟 Bem-vindo à Biblioteca de Componentes
+
+Bem-vindo à documentação interativa da **Biblioteca de Componentes** do projeto. Aqui, você encontrará todos os componentes disponíveis e como utilizá-los corretamente.
+
+## 🚀 Começando
+
+Para instalar as dependências do projeto e iniciar o Storybook, execute:
+
+```bash
+pnpm install
+pnpm storybook dev
+```
+
+## 📂 Organização dos Componentes
+
+Os componentes são organizados em diferentes categorias, seguindo a estrutura:
+
+```scss
+|-📂 src/components/
+  |-📁 forms/                # Formulários
+  |-📁 layouts/              # Sessões reutilizáveis
+  |-📁 providers/            # Componentes que compartilham estados
+  |-📁 tables/               # Componentes relacionados a tabelas
+  |-📁 ui/                   # Componentes atômicos
+    |-📁 Button/
+      |-⚛️ index.tsx
+      |-🧪 index.spec.tsx
+      |-📖 index.stories.tsx
+```
+
+Cada componente segue uma estrutura padronizada:
+
+- index.tsx → Implementação do componente.
+- index.spec.tsx → Testes unitários com Jest e Testing Library.
+- index.stories.tsx → Documentação e exemplos no Storybook.
+
+## 🔌 Plugins Recomendados para VSCode
+Para melhorar a experiência de desenvolvimento, recomendamos instalar os seguintes plugins no Visual Studio Code:
+
+<table>
+  <thead>
+    <tr>
+      <th>Plugin</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MDX</td>
+      <td>Suporte aprimorado para arquivos .mdx</td>
+    </tr>
+    <tr>
+      <td>ESLint</td>
+      <td>Integração com ESLint para melhor linting</td>
+    </tr>
+    <tr>
+      <td>i18n Ally</td>
+      <td>Ferramenta para gerenciar traduções i18n</td>
+    </tr>
+    <tr>
+      <td>Auto Close Tag</td>
+      <td>Fecha automaticamente a tag</td>
+    </tr>
+    <tr>
+      <td>Auto Rename Tag</td>
+      <td>Renomeia automaticamente a tag de fechamento ao alterar a de abertura</td>
+    </tr>
+    <tr>
+      <td>Tailwind CSS IntelliSense</td>
+      <td>Sugestões inteligentes para Tailwind CSS</td>
+    </tr>
+    <tr>
+      <td>JavaScript (ES6) Code Snippets</td>
+      <td>Snippets úteis para ES6+</td>
+    </tr>
+  </tbody>
+</table>
+
+### ⚙️ Configurações Recomendadas
+Adicione as seguintes configurações no settings.json para melhorar a produtividade:
+
+```json
+{
+    "tailwindCSS.files.exclude": [
+        "**/.hg/**",
+        "**/.svn/**",
+        "**/.git/**",
+        "**/.next/**",
+        "**/.vscode/**",
+        "**/messages/**",
+        "**/.storybook/**",
+        "**/node_modules/**"
+    ],
+    "tailwindCSS.emmetCompletions": true,
+    "tailwindCSS.experimental.classRegex": [
+        [
+            "tv\\(([^)]*)\\)",
+            "[\"'`]([^\"'`]*).*?[\"'`]"
+        ]
+    ],
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnPaste": false, 
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": { 
+        "source.fixAll": "always"
+    }
+}
+```
+
+## 📌 Padrões de Código
+Para manter a consistência e a qualidade do código, siga estas diretrizes abaixo:
+
+### 1️⃣ Componentes
+- Devem ser exportados de forma nomeada para facilitar a refatoração e a manutenção.
+- Devem ser funcionais (Não usar Class nem Arrow Functions).
+- O nome dos componentes devem ser em **PascalCase**.
+- Os componentes devem ser tipados corretamente, priorizando a **extensão** das propriedades **do elemento HTML principal**.
+
+#### ✔ Vantagens dessa abordagem:
+
+- Componentes utilizando funções (Function Declaration):
+  - Melhor legibilidade e debugging: O React DevTools exibe corretamente o nome do componente.
+  - Melhor suporte a hooks: Hooks como useState e useEffect funcionam apenas dentro de componentes funcionais.
+  - Mais performático: Componentes funcionais são otimizados pelo React e não sofrem com problemas de this.
+  - Mais conciso e moderno: Reduz a verbosidade do código e facilita a manutenção.
+  - Compatibilidade com memoização: Funciona melhor com React.memo() para otimização de renderização.
+- Componentes estendendo elemento HTML principal:
+  - Permite passar propriedades nativas do HTML (className, id, data-* attributes, etc.).
+  - Facilita o uso do ref quando necessário.
+  - Mantém o código organizado e fácil de entender.
+
+#### Exemplos
+
+```tsx
+// ❌ ERRADO - Não utilizar arrow functions
+export const Button = () => <button>Click me</button>
+
+// ❌ ERRADO - Não utilizar exportação default
+export default function Button() {
+  return <button>Click me</button>;
+}
+
+// ❌ ERRADO - Não utilizar classes para componentes
+export class Button extends React.Component {
+  render() {
+    return <button>Click me</button>;
+  }
+}
+
+// ✅ CORRETO - Sempre exportar de forma nomeada
+export function Button() {
+  return <button>Click me</button>;
+}
+```
+
+```tsx
+import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
+
+type BaseProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+
+type AccordionProps = BaseProps & {
+  title: string;
+  isOpen?: boolean;
+  children: ReactNode;
+  onToggle?: () => void;
+};
+
+export function Accordion({ title, isOpen, children, onToggle, ...rest }: AccordionProps) {
+  return (
+    <div {...rest}>
+      <button onClick={onToggle}>{title}</button>
+      {isOpen && <div>{children}</div>}
+    </div>
+  );
+}
+```
+
+## 🔗 Links Úteis
+
+- 📖 [Documentação do React](https://pt-br.react.dev)
+- 📖 [Next.js - Framework](https://nextjs.org/docs)
+- 📖 [NextAuth.js - Authenticação](https://next-auth.js.org)
+- 📖 [NextIntl.js - Internacionalização](https://nextjs.org/docs)
+- 📖 [Guia Oficial do Storybook](https://storybook.js.org/)
+- 📖 [Biblioteca do icons](https://react-icons.github.io/react-icons/search/)
+- 📖 [Documentação do Tailwind CSS](https://tailwindcss.com/docs)
+- 📖 [Documentação do Tailwind Variants](https://www.tailwind-variants.org)

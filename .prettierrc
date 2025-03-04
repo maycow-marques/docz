@@ -1,0 +1,19 @@
+{
+  "semi": true,
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports", 
+    "prettier-plugin-tailwindcss"
+  ],
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "tailwindFunctions": ["tv", "tw"],
+  "tailwindPreserveWhitespace": true,
+  "tailwindPreserveDuplicates": true,
+  "importOrder": ["<THIRD_PARTY_MODULES>", "", "^@/(.*)$", "", "^[./]"],
+  "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+  "importOrderCaseSensitive": false,
+  "importOrderTypeScriptVersion": "5.0.0"
+}

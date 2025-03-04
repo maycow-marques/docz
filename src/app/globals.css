@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-plus-jakarta-sans);
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
