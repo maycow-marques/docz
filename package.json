@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build && pnpm run build-storybook && [ -d storybook-static ] && mv storybook-static public/storybook || echo 'Skipping Storybook move'",
-    "build-storybook": "storybook build",
+    "build": "next build",
+    "build-storybook": "build-storybook -s public",
+    "serve-storybook": "serve storybook-static",
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
