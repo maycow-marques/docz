@@ -7,7 +7,6 @@
     "dev": "next dev",
     "build": "next build",
     "build-storybook": "storybook build --docs",
-    "serve-storybook": "serve storybook-static",
     "start": "next start",
     "lint": "next lint",
     "storybook": "storybook dev -p 6006",
