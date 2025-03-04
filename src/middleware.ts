@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 
 import { routing } from "./i18n/routing";
 
-const publicPages = ["/"];
+const publicPages = ["/", "/storybook"];
 
 const intlMiddleware = createMiddleware(routing);
 
