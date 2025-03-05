@@ -12,7 +12,7 @@ Para instalar as dependências do projeto e iniciar o Storybook, execute:
 
 ```bash
 pnpm install
-pnpm storybook dev
+pnpm storybook
 ```
 
 ## 📂 Organização dos Componentes
@@ -27,16 +27,78 @@ Os componentes são organizados em diferentes categorias, seguindo a estrutura:
   |-📁 tables/               # Componentes relacionados a tabelas
   |-📁 ui/                   # Componentes atômicos
     |-📁 Button/
-      |-⚛️ index.tsx
-      |-🧪 index.spec.tsx
       |-📖 index.stories.tsx
+      |-⚛️ index.tsx
+    |-📁 Dropdown/
+      |-⚛️ Dropdown.tsx
+      |-📚 Dropdown.stories.tsx
+      |-⚛️ DropdownItem.tsx
+      |-⚛️ index.ts         # Ambos devem ser exportados daqui
 ```
 
-Cada componente segue uma estrutura padronizada:
+### 🔧 Padrão de Organização
 
-- index.tsx → Implementação do componente.
-- index.spec.tsx → Testes unitários com Jest e Testing Library.
-- index.stories.tsx → Documentação e exemplos no Storybook.
+Esta estrutura segue um **padrão hierárquico**, garantindo que **componentes filhos** permaneçam dentro do contexto de seus **componentes pais**, caso não sejam reutilizados globalmente. Isso ajuda na **organização do código**, evita poluição de pastas e melhora a manutenção.
+
+#### 🔹 **Quando essa estrutura é ideal?**
+- O **componente filho** é usado **somente dentro do pai** (exemplo: `DropdownItem` só faz sentido dentro de `Dropdown`).
+- Mantém a estrutura organizada e fácil de navegar.
+- Evita a necessidade de importar componentes filhos em locais desnecessários.
+
+#### 🔹 **Quando mover para um local mais genérico?**
+- Se um **componente filho for reutilizado** em outros lugares, ele deve ser movido para `src/components/ui`.
+- Exemplo: Se `DropdownItem` for usado fora do `Dropdown`, ele deveria estar em `src/components/ui/DropdownItem.tsx`.
+
+### 🎨 Reexportando Componentes Filhos
+Para evitar importações longas e garantir encapsulamento, os componentes filhos podem ser **reexportados via `index.ts` do pai**:
+```tsx
+// src/components/ui/Dropdown/index.ts
+export { Dropdown } from "./Dropdown";
+export { DropdownItem } from "./DropdownItem";
+```
+
+Dessa forma, a importação fica mais simples:
+```tsx
+import { Dropdown, DropdownItem } from "@/components/ui/Dropdown";
+```
+
+## 🌐 Testes no Storybook
+O Storybook permite testar interações nos componentes usando a API `play()`, `userEvent` e `within` da Testing Library.
+
+### 🔍 Teste de clique em botão
+✅ Esse teste localiza o botão dentro do Storybook e simula um clique.
+
+```tsx
+export const Default: Story = {
+  args: {
+    variant: "primary",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = await canvas.findByRole("button", { name: /clique aqui/i });
+    await userEvent.click(button);
+  },
+};
+```
+
+### 🔍 Teste de formulário no Storybook
+✅ Simula um usuário preenchendo um formulário e clicando no botão de login.
+
+```tsx
+import { userEvent, within } from "@storybook/testing-library";
+import { LoginForm } from "./LoginForm";
+
+export const Default = {
+  args: {},
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByLabelText("E-mail"), "teste@email.com");
+    await userEvent.type(canvas.getByLabelText("Senha"), "123456");
+    await userEvent.click(canvas.getByRole("button", { name: /entrar/i }));
+  },
+};
+```
+
 
 ## 🔌 Plugins Recomendados para VSCode
 Para melhorar a experiência de desenvolvimento, recomendamos instalar os seguintes plugins no Visual Studio Code:
@@ -180,13 +242,126 @@ export function Accordion({ title, isOpen, children, onToggle, ...rest }: Accord
 }
 ```
 
+## 🌍 Snippets
+Aqui estão alguns snippets para agilizar o desenvolvimento de componentes no projeto:
+
+### 🔖 Criar um componente de formulário
+```json
+"Creates a Form component": {
+  "prefix": "component:form",
+  "body": [
+    "\"use client\";",
+    "",
+    "import { zodResolver } from \"@hookform/resolvers/zod\";",
+    "import { useTranslations } from \"next-intl\";",
+    "import { useTransition } from \"react\";",
+    "import { Controller, useForm } from \"react-hook-form\";",
+    "import { z } from \"zod\";",
+    "",
+    "import { useModal } from \"@/core/hooks/useModal\";",
+    "import { useZodTranslation } from \"@/core/hooks/useZodTranslation\";",
+    "import { useRouter } from \"@/i18n/navigation\";",
+    "",
+    "export function LoginForm() {",
+    "  const t = useTranslations();",
+    "  const router = useRouter();",
+    "  const translateError = useZodTranslation();",
+    "  const { openModal, closeModal } = useModal();",
+    "  const [isPending, startTransition] = useTransition();",
+    "",
+    "  const schema = z.object({});",
+    "",
+    "  type SchemaProps = z.infer<typeof schema>;",
+    "",
+    "  const {",
+    "    control,",
+    "    handleSubmit,",
+    "    formState: { errors },",
+    "  } = useForm<SchemaProps>({",
+    "    resolver: zodResolver(schema),",
+    "    defaultValues: {},",
+    "  });",
+    "",
+    "  async function onSubmit({ client, password, username }: SchemaProps) {",
+    "    startTransition(async () => {});",
+    "  }",
+    "",
+    "  return (",
+    "    <form onSubmit={handleSubmit(onSubmit)}>",
+    "    </form>",
+    "  )",
+    "}",
+    ""
+  ]
+},
+```
+
+### 🔖 Criar um componente que estende `<div>`
+```json
+"Creates a component that extends div": {
+  "prefix": "component:div",
+  "body": [
+      "import { tv } from \"tailwind-variants\";",
+      "",
+      "type BaseProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;",
+      "",
+      "type $1Props = BaseProps & {}",
+      "",
+      "export function $1({ className, children, ...rest }: $1Props) {",
+      "  return <div className={style({ className })} {...rest}>{children}</div>",
+      "}",
+      "",
+      "const style = tv({",
+      "  base: \"\",",
+      "  variants: {},",
+      "})",
+      ""
+  ]
+},
+```
+
+### 📚 Criar um Story para um componente
+```json
+"Creates a component story": {
+  "prefix": "component:story",
+  "body": [
+    "import type { Meta, StoryObj } from \"@storybook/react\";",
+    "import { fn, userEvent, within } from \"@storybook/test\";",
+    "",
+    "import { ${1:componentName} } from \"./\";",
+    "",
+    "export const ActionsData = {};",
+    "",
+    "const meta = {",
+    "  tags: [\"autodocs\"],",
+    "  args: { ...ActionsData },",
+    "  title: \"${2:context}/${1:componentName}\",",
+    "  component: ${1:componentName},",
+    "  excludeStories: /.*Data$/,",
+    "  argTypes: { },",
+    "} satisfies Meta<typeof ${1:componentName}>;",
+    "",
+    "export default meta;",
+    "",
+    "type Story = StoryObj<typeof meta>;",
+    "",
+    "export const Default: Story = {",
+    "  args: {},",
+    "  play: async ({ canvasElement }) => {",
+    "    const canvas = within(canvasElement);",
+    "  }",
+    "}"
+  ]
+}
+```
+
 ## 🔗 Links Úteis
 
-- 📖 [Documentação do React](https://pt-br.react.dev)
+- 📖 [Biblioteca de Icones](https://react-icons.github.io/react-icons/search/)
 - 📖 [Next.js - Framework](https://nextjs.org/docs)
-- 📖 [NextAuth.js - Authenticação](https://next-auth.js.org)
 - 📖 [NextIntl.js - Internacionalização](https://nextjs.org/docs)
-- 📖 [Guia Oficial do Storybook](https://storybook.js.org/)
-- 📖 [Biblioteca do icons](https://react-icons.github.io/react-icons/search/)
+- 📖 [NextAuth.js - Authenticação](https://next-auth.js.org)
+- 📖 [Documentação do React](https://pt-br.react.dev)
+- 📖 [Documentação do Storybook](https://storybook.js.org/)
 - 📖 [Documentação do Tailwind CSS](https://tailwindcss.com/docs)
 - 📖 [Documentação do Tailwind Variants](https://www.tailwind-variants.org)

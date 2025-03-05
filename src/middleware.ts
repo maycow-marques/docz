@@ -14,7 +14,6 @@ const authMiddleware = withAuth((req) => intlMiddleware(req), {
   },
   pages: {
     signIn: "/",
-    error: "/error",
   },
 });
 

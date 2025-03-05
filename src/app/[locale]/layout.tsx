@@ -5,8 +5,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 
-import { PageLoadingProvider } from "@/components/providers/PageLoadingProvider";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { Providers } from "@/components/providers/Providers";
 import { routing } from "@/i18n/routing";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -30,11 +29,11 @@ export default async function RootLayout({ children, params }: Props) {
   const messages = await getMessages();
   return (
     <html lang={locale} className="scroll-smooth">
-      <body className={`${plusJakartaSans.variable} bg-gray-100 font-sans antialiased`}>
+      <body
+        className={`${plusJakartaSans.variable} min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 font-sans text-slate-900 antialiased dark:from-neutral-900 dark:to-neutral-950 dark:text-neutral-400`}
+      >
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider>
-            <PageLoadingProvider>{children}</PageLoadingProvider>
-          </ThemeProvider>
+          <Providers>{children}</Providers>
         </NextIntlClientProvider>
       </body>
     </html>

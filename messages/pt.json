@@ -1,1 +1,46 @@
-{}
+{
+  "login-page": {
+    "title": "Entrar",
+    "text": "Insira suas credenciais para acessar",
+    "form": {
+      "client": "Cliente",
+      "username": "Nome de usuário",
+      "password": "Senha",
+      "button-submit": "Entrar",
+      "forget-password": "Esqueceu sua senha? <important>Recupere-a</important>."
+    }
+  },
+  "shared": {
+    "close": "Fechar",
+    "loading": "Carregando...",
+    "copyright": "<year>© Copyright {date}.</year> <text>Todos os Direitos Reservados.</text>",
+    "errors": {
+      "required": "Este campo é obrigatório.",
+      "min": "Deve ter pelo menos {min} caracteres.",
+      "max": "Não pode ter mais que {max} caracteres.",
+      "invalid": "Formato inválido.",
+      "invalid-credential": {
+        "title": "Falha na autenticação",
+        "text": "Verifique se as credenciais informadas estão corretas e se o código do cliente é válido."
+      }
+    },
+    "contact-actions": {
+      "phone": {
+        "title": "Telefone",
+        "text": "Fale conosco através de Ligação"
+      },
+      "email": {
+        "title": "Email",
+        "text": "Fale conosco através de Email"
+      },
+      "bitrix": {
+        "title": "Bitrix",
+        "text": "Fale conosco através do Bitrix"
+      },
+      "whatsapp": {
+        "title": "Whatsapp",
+        "text": "Fale conosco através do Whatsapp"
+      }
+    }
+  }
+}

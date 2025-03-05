@@ -10,17 +10,16 @@ export const authOptions: AuthOptions = {
         username: { type: "text" },
         password: { type: "password" },
       },
-      authorize(credentials) {
-        const exists =
-          credentials?.client === "demo" &&
-          credentials?.username === "admin" &&
-          credentials.password === "admin";
+      async authorize(credentials) {
+        console.log("credentials", credentials);
+
+        const exists = credentials?.client === "demo" && credentials.password === "Asd@1234";
 
         return exists
           ? {
               id: "1",
-              name: "admin",
-              role: "Admin",
+              name: credentials.username,
+              role: "Desenvolvedor",
               username: "admin@sosdocs.com.br",
               permissions: ["teste:teste"],
             }
@@ -28,4 +27,7 @@ export const authOptions: AuthOptions = {
       },
     }),
   ],
+  pages: {
+    signIn: "/",
+  },
 };

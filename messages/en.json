@@ -1,1 +1,46 @@
-{}
+{
+  "login-page": {
+    "title": "Sign in",
+    "text": "Enter your credentials to access",
+    "form": {
+      "client": "Client",
+      "username": "Username",
+      "password": "Password",
+      "button-submit": "Sign in",
+      "forget-password": "Forgot your password? <important>Recover it</important>."
+    }
+  },
+  "shared": {
+    "close": "Close",
+    "loading": "Loading...",
+    "copyright": "<year>© Copyright {date}.</year> <text>All rights reserved.</text>",
+    "errors": {
+      "required": "This field is required.",
+      "min": "Must have at least {min} characters.",
+      "max": "Cannot have more than {max} characters.",
+      "invalid": "Invalid format.",
+      "invalid-credentials": {
+        "title": "Authentication failed",
+        "text": "Please check if the provided credentials are correct and if the client code is valid."
+      }
+    },
+    "contact-actions": {
+      "phone": {
+        "title": "Phone",
+        "text": "Contact us via Call"
+      },
+      "email": {
+        "title": "Email",
+        "text": "Contact us via Email"
+      },
+      "bitrix": {
+        "title": "Bitrix",
+        "text": "Contact us via Bitrix"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "text": "Contact us via WhatsApp"
+      }
+    }
+  }
+}

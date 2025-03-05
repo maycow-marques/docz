@@ -20,3 +20,35 @@
   width: 100%;
   z-index: 1031;
 }
+
+@keyframes orbit {
+  0% { transform: rotate(0deg) translateX(var(--orbit-radius, 12rem)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--orbit-radius, 12rem)) rotate(-360deg); }
+}
+
+@keyframes orbit-reverse {
+  0% { transform: rotate(0deg) translateX(var(--orbit-radius, 12rem)) rotate(0deg); }
+  100% { transform: rotate(-360deg) translateX(var(--orbit-radius, 12rem)) rotate(360deg); }
+}
+
+.animate-orbit,.animate-orbit-reverse {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.animate-orbit { animation-name: orbit; }
+.animate-orbit-reverse { animation-name: orbit-reverse; }
+
+.orbit-1 { animation-duration: 25s;}
+.orbit-2 { animation-duration: 20s;}
+.orbit-3 { animation-duration: 15s;}
+.orbit-4 { animation-duration: 10s;}
+.orbit-5 { animation-duration: 5s;}
+
+.orbit-xs { --orbit-radius: 3.5rem; }
+.orbit-sm { --orbit-radius: 5.5rem; }
+.orbit-md { --orbit-radius: 6rem; }
+.orbit-lg { --orbit-radius: 7rem; }
+.orbit-xl { --orbit-radius: 8rem; }
+.orbit-2xl { --orbit-radius: 10rem; }
+.orbit-3xl { --orbit-radius: 12rem; }

@@ -1,1 +1,46 @@
-{}
+{
+  "login-page": {
+    "title": "Iniciar sesión",
+    "text": "Ingrese sus credenciales para acceder",
+    "form": {
+      "client": "Cliente",
+      "username": "Nombre de usuario",
+      "password": "Contraseña",
+      "button-submit": "Iniciar sesión",
+      "forget-password": "¿Olvidaste tu contraseña? <important>Recupérala</important>."
+    }
+  },
+  "shared": {
+    "close": "Cerrar",
+    "loading": "Cargando...",
+    "copyright": "<year>© Copyright {date}.</year> <text>Todos los derechos reservados.</text>",
+    "errors": {
+      "required": "Este campo es obligatorio.",
+      "min": "Debe tener al menos {min} caracteres.",
+      "max": "No puede tener más de {max} caracteres.",
+      "invalid": "Formato inválido.",
+      "invalid-credentials": {
+        "title": "Fallo en la autenticación",
+        "text": "Verifique si las credenciales proporcionadas son correctas y si el código del cliente es válido."
+      }
+    },
+    "contact-actions": {
+      "phone": {
+        "title": "Teléfono",
+        "text": "Contáctanos a través de una llamada"
+      },
+      "email": {
+        "title": "Correo Electrónico",
+        "text": "Contáctanos a través del correo electrónico"
+      },
+      "bitrix": {
+        "title": "Bitrix",
+        "text": "Contáctanos a través de Bitrix"
+      },
+      "whatsapp": {
+        "title": "WhatsApp",
+        "text": "Contáctanos a través de WhatsApp"
+      }
+    }
+  }
+}
