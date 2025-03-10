@@ -7,7 +7,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "build": "next build && storybook build -o public/storybook",
+    "build": "next build",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -o public/storybook",
     "prepare": "husky"
