@@ -1,5 +1,6 @@
 "use client";
 
+import { signOut } from "next-auth/react";
 import NextLink from "next/link";
 import { FaBars } from "react-icons/fa6";
 
@@ -54,6 +55,13 @@ export function DashboardHeader({ toggle }: DashboardHeaderProps) {
           <ThemeToggle />
 
           <LocaleDropdown path="/dashboard" />
+
+          <button
+            onClick={() => signOut()}
+            className="hover:bg-muted/10 cursor-pointer rounded-md border border-transparent p-1"
+          >
+            <Icon size={20} name="PiSignOutDuotone" className="text-error-100" />
+          </button>
         </div>
       </div>
     </Section>
