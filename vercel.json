@@ -10,10 +10,5 @@
       "src": "^/storybook(/.*)?$",
       "dest": "/storybook/index.html"
     }
-  ],
-  "ignoreBuildStep": [
-    {
-      "path": "public/storybook"
-    }
   ]
 }
