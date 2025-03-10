@@ -1,0 +1,195 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Snippets" />
+
+# 🌍 Snippets
+Aqui estão alguns **snippets úteis** para agilizar o desenvolvimento neste projeto.
+
+---
+
+## 🛠 Como configurar snippets somente para este projeto?
+
+1. 1️⃣ **Abra o VS Code e acesse a configuração de snippets**  
+    - No VS Code, pressione:  
+      - *(Mac)*: **`Cmd` + `Shift` + `P`**
+      - *(Windows/Linux)*: **`Ctrl` + `Shift` + `P`**
+    - Pesquise por **Snippets: Configure Snippets**  
+    - Escolha a opção **Novo arquivo de snippets para 'docz'**
+
+2. 2️⃣ **Crie um arquivo `.code-snippets` para o projeto**  
+   - Ao dar nome ao seu arquivo aparecerá algo parecido com isso na raiz do seu projeto:  
+     ```
+     .vscode/
+       ├── settings.json
+       ├── docz.code-snippets  👈 Criar esse arquivo
+     ```
+   - No arquivo **`docz.code-snippets`**, adicione os snippets abaixo.
+
+```json
+{
+	"Translations on ClientSide": {
+		"prefix": "t:client",
+		"body": [ "const t = useTranslations();" ],
+		"description": "Importa o hook de internacionalização"
+	},
+	"Translations on ServerSide": {
+		"prefix": "t:server",
+		"body": [ "const t = await getTranslations();" ],
+		"description": "Chama `getTranslations` de forma assíncrona"
+	},
+	"Translations Zod": {
+		"prefix": "t:zod",
+		"body": [ "const translateError = useZodTranslation();" ],
+		"description": "Obtém o tradutor de mensagens de erro do Zod"
+	},
+	"TranslateError Required": {
+		"prefix": "t:zod-required",
+		"body": [ "translateError({ code: \"required\" })" ],
+		"description": "Erro de campo obrigatório no Zod"
+	},
+	"TranslateError Too Small": {
+		"prefix": "t:zod-toosmall",
+		"body": [ "translateError({ code: \"too_small\", params: { min: $1 } })" ],
+		"description": "Erro de tamanho mínimo no Zod"
+	},
+	"TranslateError Too Big": {
+		"prefix": "t:zod-toobig",
+		"body": [ "translateError({ code: \"too_big\", params: { max: $1 } })" ],
+		"description": "Erro de tamanho máximo no Zod"
+	},
+	"UseTheme Hook": {
+		"prefix": "usetheme",
+		"body": [ "const { theme, toggleTheme } = useTheme();" ],
+		"description": "Obtém o tema atual e alterna entre light/dark"
+	},
+	"Session on ClientSide": {
+		"prefix": "session:client",
+		"body": [ "const { data: session, status } = useSession();" ],
+		"description": "Obtém a sessão do usuário com `useSession()`"
+	},
+	"Session on ServerSide": {
+		"prefix": "session:server",
+		"body": [ "const { data: session, status } = await getServerSession(authOptions);" ],
+		"description": "Obtém a sessão do usuário em components ServerSide"
+	},
+	"Session on API": {
+		"prefix": "session:api",
+		"body": [ "const { data: session, status } = await getSession({ req });" ],
+		"description": "Obtém a sessão do usuário nos router handlers"
+	},
+	"Creates a component": {
+		"prefix": "component",
+		"body": [
+			"use client",
+			"",
+			"import { tv } from \"tailwind-variants\";",
+			"",
+			"type BaseProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;",
+			"",
+			"type $1Props = BaseProps & {}",
+			"",
+			"export function $1({ className, children, ...rest }: $1Props) {",
+			"  return <div className={style({ className })} {...rest}>{children}</div>",
+			"}",
+			"",
+			"const style = tv({",
+			"  base: \"\",",
+			"  variants: {},",
+			"})",
+			""
+		]
+	},
+	"Creates a component's story": {
+		"prefix": "component:story",
+		"body": [
+			"import type { Meta, StoryObj } from \"@storybook/react\";",
+			"import { fn, userEvent, within } from \"@storybook/test\";",
+			"",
+			"import { ${1:componentName} } from \"./\";",
+			"",
+			"export const ActionsData = {",
+			"  onClick: fn(),",
+			"  onClose: fn(),",
+			"};",
+			"",
+			"const meta = {",
+			"  title: \"${2:context}/${1:componentName}\",",
+			"  component: ${1:componentName},",
+			"  excludeStories: /.*Data$/,",
+			"  tags: [\"autodocs\"],",
+			"  args: { ...ActionsData },",
+			"  argTypes: {",
+			"    onClick: { action: \"clicked\" },",
+			"  },",
+			"  parameters: {",
+			"    docs: {",
+			"      description: {",
+			"        component: \"Documentação interativa do ${1:componentName}\",",
+			"      },",
+			"    },",
+			"  },",
+			"} satisfies Meta<typeof ${1:componentName}>;",
+			"",
+			"export default meta;",
+			"",
+			"type Story = StoryObj<typeof meta>;",
+			"",
+			"export const Default: Story = {}",
+			"",
+			"export const Interation: Story = {",
+			"  args: {},",
+			"  play: async ({ canvasElement }) => {",
+			"    const canvas = within(canvasElement);",
+			"  }",
+			"};"
+		]
+	},
+	"Creates a Form component": {
+		"prefix": "component:form",
+		"body": [
+			"\"use client\";",
+			"",
+			"import { zodResolver } from \"@hookform/resolvers/zod\";",
+			"import { useTranslations } from \"next-intl\";",
+			"import { useTransition } from \"react\";",
+			"import { Controller, useForm } from \"react-hook-form\";",
+			"import { z } from \"zod\";",
+			"",
+			"import { useModal } from \"@/core/hooks/useModal\";",
+			"import { useZodTranslation } from \"@/core/hooks/useZodTranslation\";",
+			"import { useRouter } from \"@/i18n/navigation\";",
+			"",
+			"export function LoginForm() {",
+			"  const t = useTranslations();",
+			"  const router = useRouter();",
+			"  const translateError = useZodTranslation();",
+			"  const { openModal, closeModal } = useModal();",
+			"  const [isPending, startTransition] = useTransition();",
+			"",
+			"  const schema = z.object({});",
+			"",
+			"  type SchemaProps = z.infer<typeof schema>;",
+			"",
+			"  const {",
+			"    control,",
+			"    handleSubmit,",
+			"    formState: { errors },",
+			"  } = useForm<SchemaProps>({",
+			"    resolver: zodResolver(schema),",
+			"    defaultValues: {},",
+			"  });",
+			"",
+			"  async function onSubmit({ client, password, username }: SchemaProps) {",
+			"    startTransition(async () => {});",
+			"  }",
+			"",
+			"  return (",
+			"    <form onSubmit={handleSubmit(onSubmit)}>",
+			"    </form>",
+			"  )",
+			"}",
+			""
+		]
+	},
+}
+```

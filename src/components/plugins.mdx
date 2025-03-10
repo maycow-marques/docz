@@ -1,0 +1,77 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Plugins" />
+
+# 🔌 Plugins Recomendados para VSCode
+Para melhorar a experiência de desenvolvimento, recomendamos instalar os seguintes plugins no Visual Studio Code:
+
+<table>
+  <thead>
+    <tr>
+      <th>Plugin</th>
+      <th>Descrição</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MDX</td>
+      <td>Suporte aprimorado para arquivos .mdx</td>
+    </tr>
+    <tr>
+      <td>ESLint</td>
+      <td>Integração com ESLint para melhor linting</td>
+    </tr>
+    <tr>
+      <td>i18n Ally</td>
+      <td>Ferramenta para gerenciar traduções i18n</td>
+    </tr>
+    <tr>
+      <td>Auto Close Tag</td>
+      <td>Fecha automaticamente a tag</td>
+    </tr>
+    <tr>
+      <td>Auto Rename Tag</td>
+      <td>Renomeia automaticamente a tag de fechamento ao alterar a de abertura</td>
+    </tr>
+    <tr>
+      <td>Tailwind CSS IntelliSense</td>
+      <td>Sugestões inteligentes para Tailwind CSS</td>
+    </tr>
+    <tr>
+      <td>JavaScript (ES6) Code Snippets</td>
+      <td>Snippets úteis para ES6+</td>
+    </tr>
+  </tbody>
+</table>
+
+## ⚙️ Configurações Recomendadas
+Adicione as seguintes configurações no settings.json para melhorar a produtividade:
+
+```json
+{
+    "tailwindCSS.files.exclude": [
+        "**/.hg/**",
+        "**/.svn/**",
+        "**/.git/**",
+        "**/.next/**",
+        "**/.vscode/**",
+        "**/messages/**",
+        "**/.storybook/**",
+        "**/node_modules/**"
+    ],
+    "tailwindCSS.emmetCompletions": true,
+    "tailwindCSS.experimental.classRegex": [
+        [
+            "tv\\(([^)]*)\\)",
+            "[\"'`]([^\"'`]*).*?[\"'`]"
+        ]
+    ],
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.formatOnPaste": false, 
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": { 
+        "source.fixAll": "always"
+    }
+}
+```

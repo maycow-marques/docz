@@ -1,45 +1,129 @@
 {
-  "login-page": {
-    "title": "Sign in",
-    "text": "Enter your credentials to access",
-    "form": {
-      "client": "Client",
-      "username": "Username",
+  "navigation": {
+    "contacts": {
+      "email": "Contact us via Email",
+      "phone": "Contact us via Call",
+      "bitrix": "Contact us via Bitrix",
+      "whatsapp": "Contact us via WhatsApp"
+    },
+    "aps-inventory": "APS Inventory",
+    "archive-document": "Archive Document",
+    "archive-in-container": "Archive in Container",
+    "archiving-log": "Archiving Log",
+    "audit-trail": "Audit Trail",
+    "calculate-storage-period": "Calculate Storage Period",
+    "client-identifier-management": "Client Identifier Management",
+    "client-request-type": "Client Request Type",
+    "configurations": "Configurations",
+    "confirm-os-token": "Confirm O.S. by Token",
+    "dashboard": "Dashboard",
+    "distribute-indexing": "Distribute for Indexing",
+    "document-file-types": "Document File Types",
+    "indexing-step-project": "Indexing Step Project",
+    "manage-archiving": "Manage Archiving",
+    "manage-digitization": "Manage Digitization",
+    "manage-reprints": "Manage Reprints",
+    "manual": "Manual",
+    "object-type": "Object Type",
+    "profile": "Profile",
+    "projects": "Projects",
+    "release-notes": "Release Notes",
+    "reports": "Reports",
+    "requests": "Requests",
+    "requests-panel": "Requests Panel",
+    "search-object-location": "Search Object Location",
+    "status-management": "Status Management",
+    "temporality-table": "Temporality Table",
+    "vehicle-management": "Vehicle Management",
+    "view-warehouse-map": "View Warehouse Map",
+    "warehouse-management": "Warehouse Management",
+    "register-main-container": "Register main container",
+    "users": "Users",
+    "groups": "Groups",
+    "domains": "Domains",
+    "departments": "Departaments",
+    "locations": "Locations",
+    "auxiliary-tables": "Auxiliary tables",
+    "services": "Services",
+    "service-types": "Service types",
+    "home": "Home"
+  },
+  "errors": {
+    "validation": {
+      "min": "Must have at least {min} characters.",
+      "max": "Must have at most {max} characters.",
+      "required": "This field is required."
+    }
+  },
+  "form": {
+    "labels": {
       "password": "Password",
-      "button-submit": "Sign in",
+      "username": "Username",
+      "client": "Client",
+      "type": "Type",
+      "project": "Project",
+      "unit": "Unit",
+      "period": "Period",
+      "selectOption": "Select an option...",
+      "reportType": "Report type",
+      "search": "Search"
+    }
+  },
+  "notifications": {
+    "loading": "Loading...",
+    "auth": {
+      "invalid_credentials": {
+        "text": "Please check if the provided credentials are correct and if the client code is valid.",
+        "title": "Invalid credentials"
+      }
+    }
+  },
+  "pages": {
+    "login": {
+      "title": "Sign in",
+      "text": "Enter your credentials to access.",
       "forget-password": "Forgot your password? <important>Recover it</important>."
+    },
+    "dashboard": {
+      "home": {
+        "title": "Quick access",
+        "sections": {
+          "document_management": {
+            "title": "Document Management"
+          },
+          "storage_management": {
+            "title": "Storage Management"
+          },
+          "operations_management": {
+            "title": "Operations Management"
+          }
+        }
+      },
+      "reports": {
+        "title": "Reports",
+        "types": {
+          "custom": "Custom",
+          "clients": "Clients",
+          "standard": "Standard",
+          "technical": "Technical"
+        }
+      },
+      "configurations": {
+        "title": "Configurations",
+        "users": {},
+        "reports": {}
+      }
     }
   },
   "shared": {
-    "close": "Close",
-    "loading": "Loading...",
-    "copyright": "<year>© Copyright {date}.</year> <text>All rights reserved.</text>",
-    "errors": {
-      "required": "This field is required.",
-      "min": "Must have at least {min} characters.",
-      "max": "Cannot have more than {max} characters.",
-      "invalid": "Invalid format.",
-      "invalid-credentials": {
-        "title": "Authentication failed",
-        "text": "Please check if the provided credentials are correct and if the client code is valid."
-      }
-    },
-    "contact-actions": {
-      "phone": {
-        "title": "Phone",
-        "text": "Contact us via Call"
-      },
-      "email": {
-        "title": "Email",
-        "text": "Contact us via Email"
-      },
-      "bitrix": {
-        "title": "Bitrix",
-        "text": "Contact us via Bitrix"
-      },
-      "whatsapp": {
-        "title": "WhatsApp",
-        "text": "Contact us via WhatsApp"
+    "copyright": "<year>© Copyright {date} </year> <text>All rights reserved.</text>",
+    "buttons": {
+      "close": "Close",
+      "clear": "Clear",
+      "logout": "Logout",
+      "signin": "Sign in",
+      "generate": {
+        "report": "Generate report"
       }
     }
   }

@@ -1,45 +1,127 @@
 {
-  "login-page": {
-    "title": "Iniciar sesión",
-    "text": "Ingrese sus credenciales para acceder",
-    "form": {
-      "client": "Cliente",
-      "username": "Nombre de usuario",
+  "navigation": {
+    "contacts": {
+      "email": "Contáctanos por correo electrónico",
+      "phone": "Contáctanos por teléfono",
+      "bitrix": "Contáctanos por Bitrix",
+      "whatsapp": "Contáctanos por WhatsApp"
+    },
+    "aps-inventory": "Inventario APS",
+    "archive-document": "Archivar Documento",
+    "archive-in-container": "Archivar en Contenedor",
+    "archiving-log": "Registro de Archivo",
+    "audit-trail": "Rastro de Auditoría",
+    "calculate-storage-period": "Calcular Período de Almacenamiento",
+    "client-identifier-management": "Gestión del Identificador del Cliente",
+    "client-request-type": "Tipo de Solicitud del Cliente",
+    "configurations": "Configuraciones",
+    "confirm-os-token": "Confirmar O.S. por Token",
+    "dashboard": "Panel",
+    "distribute-indexing": "Distribuir para Indexación",
+    "document-file-types": "Tipos de Archivo de Documento",
+    "indexing-step-project": "Proyecto de Etapa de Indexación",
+    "manage-archiving": "Gestionar Archivado",
+    "manage-digitization": "Gestionar Digitalización",
+    "manage-reprints": "Gestionar Reimpresiones",
+    "manual": "Manual",
+    "object-type": "Tipo de Objeto",
+    "profile": "Perfil",
+    "projects": "Proyectos",
+    "release-notes": "Notas de Versión",
+    "reports": "Informes",
+    "requests": "Solicitudes",
+    "requests-panel": "Panel de Solicitudes",
+    "search-object-location": "Buscar Ubicación de Objetos",
+    "status-management": "Gestión de Estado",
+    "temporality-table": "Tabla de Temporalidad",
+    "vehicle-management": "Gestión de Vehículos",
+    "view-warehouse-map": "Ver Mapa del Almacén",
+    "warehouse-management": "Gestión de Almacén",
+    "register-main-container": "Registre el contenedor principal",
+    "users": "Usuarios",
+    "groups": "Grupos",
+    "domains": "Dominio",
+    "departments": "Degradaciones",
+    "locations": "Ubicación",
+    "auxiliary-tables": "Mesas auxiliares",
+    "services": "Servicios",
+    "service-types": "Tipos de servicio",
+    "home": "Página de inicio"
+  },
+  "errors": {
+    "validation": {
+      "min": "Debe tener al menos {min} caracteres.",
+      "max": "Debe tener como máximo {max} caracteres.",
+      "required": "Este campo es obligatorio."
+    }
+  },
+  "form": {
+    "labels": {
       "password": "Contraseña",
-      "button-submit": "Iniciar sesión",
+      "username": "Nombre de usuario",
+      "client": "Cliente",
+      "reportType": "Tipo de informe",
+      "selectOption": "Seleccione una opción ...",
+      "project": "Proyecto",
+      "unit": "Unidad",
+      "period": "Período"
+    }
+  },
+  "notifications": {
+    "loading": "Cargando...",
+    "auth": {
+      "invalid_credentials": {
+        "text": "Verifique si las credenciales proporcionadas son correctas y si el código del cliente es válido.",
+        "title": "Credenciales inválidas"
+      }
+    }
+  },
+  "pages": {
+    "login": {
+      "title": "Iniciar sesión",
+      "text": "Ingrese sus credenciales para acceder.",
       "forget-password": "¿Olvidaste tu contraseña? <important>Recupérala</important>."
+    },
+    "dashboard": {
+      "home": {
+        "title": "Acceso rápido",
+        "sections": {
+          "document_management": {
+            "title": "Gestión de Documentos"
+          },
+          "storage_management": {
+            "title": "Gestión de Almacenamiento"
+          },
+          "operations_management": {
+            "title": "Gestión de Operaciones"
+          }
+        }
+      },
+      "reports": {
+        "title": "Informes",
+        "types": {
+          "custom": "Personalizado",
+          "clients": "Clientes",
+          "standard": "Estándar",
+          "technical": "Técnico"
+        }
+      },
+      "configurations": {
+        "title": "Configuraciones",
+        "users": {},
+        "reports": {}
+      }
     }
   },
   "shared": {
-    "close": "Cerrar",
-    "loading": "Cargando...",
-    "copyright": "<year>© Copyright {date}.</year> <text>Todos los derechos reservados.</text>",
-    "errors": {
-      "required": "Este campo es obligatorio.",
-      "min": "Debe tener al menos {min} caracteres.",
-      "max": "No puede tener más de {max} caracteres.",
-      "invalid": "Formato inválido.",
-      "invalid-credentials": {
-        "title": "Fallo en la autenticación",
-        "text": "Verifique si las credenciales proporcionadas son correctas y si el código del cliente es válido."
-      }
-    },
-    "contact-actions": {
-      "phone": {
-        "title": "Teléfono",
-        "text": "Contáctanos a través de una llamada"
-      },
-      "email": {
-        "title": "Correo Electrónico",
-        "text": "Contáctanos a través del correo electrónico"
-      },
-      "bitrix": {
-        "title": "Bitrix",
-        "text": "Contáctanos a través de Bitrix"
-      },
-      "whatsapp": {
-        "title": "WhatsApp",
-        "text": "Contáctanos a través de WhatsApp"
+    "copyright": "<year>© Copyright {date} </year> <text>Todos los derechos reservados.</text>",
+    "buttons": {
+      "close": "Cerrar",
+      "clear": "Limpiar",
+      "logout": "Salir",
+      "signin": "Iniciar sesión",
+      "generate": {
+        "report": "Generar informe"
       }
     }
   }

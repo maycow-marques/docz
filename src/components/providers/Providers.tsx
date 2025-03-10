@@ -3,7 +3,7 @@
 import { SessionProvider as NextAuthProvider } from "next-auth/react";
 import { ReactNode } from "react";
 
-import { ModalProvider } from "./ModalProvider";
+import { FeedbackProvider } from "./FeedbackProvider";
 import { PageLoadingProvider } from "./PageLoadingProvider";
 import { ThemeProvider } from "./ThemeProvider";
 
@@ -13,9 +13,9 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider>
       <PageLoadingProvider>
-        <ModalProvider>
+        <FeedbackProvider>
           <NextAuthProvider>{children}</NextAuthProvider>
-        </ModalProvider>
+        </FeedbackProvider>
       </PageLoadingProvider>
     </ThemeProvider>
   );

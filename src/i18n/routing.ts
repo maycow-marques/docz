@@ -7,18 +7,34 @@ export const defaultLocale = "pt";
 export const localePrefix = "never";
 
 export const langs = {
-  es: { name: "Espanhõl", flag: "py" },
   en: { name: "English", flag: "us" },
+  es: { name: "Espanhõl", flag: "py" },
   pt: { name: "Português", flag: "br" },
 };
 
-// Define your pathnames
+export type Pathnames = keyof typeof pathnames;
+
 export const pathnames = {
   "/": "/",
   "/dashboard": {
     en: "/dashboard",
     es: "/panel",
     pt: "/painel",
+  },
+  "/dashboard/reports": {
+    en: "/dashboard/reports",
+    es: "/panel/informes",
+    pt: "/painel/relatorios",
+  },
+  "/dashboard/configurations/users": {
+    en: "/dashboard/configurations/users",
+    es: "/panel/ajustes/usuarios",
+    pt: "/painel/configuracoes/usuarios",
+  },
+  "/dashboard/release-notes": {
+    en: "/dashboard/release-notes",
+    es: "/panel/notas-de-la-version",
+    pt: "/painel/notas-da-versao",
   },
 } as const;
 

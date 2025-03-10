@@ -1,0 +1,19 @@
+{
+  "rewrites": [
+    {
+      "source": "/storybook/:path*",
+      "destination": "/storybook/index.html"
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/storybook(/.*)?$",
+      "dest": "/storybook/index.html"
+    }
+  ],
+  "ignoreBuildStep": [
+    {
+      "path": "public/storybook"
+    }
+  ]
+}

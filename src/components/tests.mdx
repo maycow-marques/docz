@@ -1,0 +1,74 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Testes" />
+
+# 🌐 Testando Componentes no Storybook
+
+O Storybook permite testar **interações nos componentes** usando a API `play()`, `userEvent` e `within` da **Testing Library**. Isso facilita a **validação de comportamento** sem a necessidade de um ambiente externo.
+
+## 🚀 Como Funciona?
+Os testes são definidos dentro do objeto `play()` dentro de cada **story**, permitindo **simular interações e validar mudanças no estado do componente**.
+
+### 🔍 Teste de Clique em Botão
+✅ Esse teste localiza o botão dentro do Storybook e **simula um clique**.
+
+```tsx
+export const Interaction: Story = {
+  args: {
+    children: "Click Here",
+    variant: "primary",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: "Click Here" }));
+  },
+};
+```
+
+#### 🎯 **O que esse teste faz?**
+  - Localiza o botão dentro do Storybook usando getByRole("button").
+  - Simula um clique com userEvent.click().
+  - Assegura que a interação pode ser verificada no Storybook.
+
+---
+
+### 🔥 Outros Exemplos de Testes no Storybook
+#### ✨ **Teste de Preenchimento de Input**
+✅ Simula um usuário digitando no campo de entrada.
+
+```tsx
+export const Interaction: Story = {
+  args: {
+    id: "name",
+    placeholder: "Digite seu nome",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Digite seu nome");
+    await userEvent.type(input, "João");
+  },
+};
+```
+
+#### 🔄 **Teste de Alternância (Toggle)**
+✅ Simula o usuário clicando em um switch para alternar entre dois estados.
+
+```jsx
+export const Interaction: Story = {
+  args: {
+    id: "terms",
+    label: "Aceitar Termos",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const toggle = canvas.getByLabelText("Aceitar Termos");
+    await userEvent.click(toggle);
+  },
+};
+```
+
+## 📌 Por que usar play() no Storybook?
+1. ✅ Facilita testes visuais e interativos no ambiente do Storybook.
+2. ✅ Simula o comportamento real do usuário sem precisar rodar um ambiente externo.
+3. ✅ Integra-se bem com CI/CD para detectar problemas rapidamente.
+4. ✅ Ajuda na documentação interativa, permitindo validar interações diretamente na UI.

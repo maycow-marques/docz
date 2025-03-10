@@ -4,7 +4,7 @@ import { NextRequest } from "next/server";
 
 import { routing } from "./i18n/routing";
 
-const publicPages = ["/", "/storybook"];
+const publicPages = ["/", "/storybook", "/storybook/:path*"];
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -24,9 +24,11 @@ export default function middleware(req: NextRequest) {
       .join("|")})/?$`,
     "i"
   );
-  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
 
-  if (isPublicPage) {
+  const isPublicPage = publicPathnameRegex.test(req.nextUrl.pathname);
+  const isStorybook = req.nextUrl.pathname.startsWith("/storybook");
+
+  if (isPublicPage || isStorybook) {
     return intlMiddleware(req);
   } else {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

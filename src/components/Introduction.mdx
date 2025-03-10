@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/blocks";
 
-<Meta title="Introducao" />
+<Meta title="Introduction" />
 
 # 🌟 Bem-vindo à Biblioteca de Componentes
 
@@ -24,19 +24,25 @@ Os componentes são organizados em diferentes categorias, seguindo a estrutura:
   |-📁 forms/                # Formulários
   |-📁 layouts/              # Sessões reutilizáveis
   |-📁 providers/            # Componentes que compartilham estados
-  |-📁 tables/               # Componentes relacionados a tabelas
-  |-📁 ui/                   # Componentes atômicos
-    |-📁 Button/
-      |-📖 index.stories.tsx
-      |-⚛️ index.tsx
-    |-📁 Dropdown/
-      |-⚛️ Dropdown.tsx
-      |-📚 Dropdown.stories.tsx
-      |-⚛️ DropdownItem.tsx
-      |-⚛️ index.ts         # Ambos devem ser exportados daqui
+  |-📁 base/                 # Componentes
+    |-📁 data-display/
+    |-📁 data-entry/
+    |-📁 feedback/
+    |-📁 general/
+    |-📁 navigation/
+      |-📁 dropdown/
+        |-📁 item/
+          |-📖 index.stories.tsx
+          |-⚛️ index.tsx
+        |-📁 container/
+          |-📖 index.stories.tsx
+          |-⚛️ index.tsx
+        |-⚛️ index.ts         # Reexportar Dropdown e DropdownItem
 ```
 
-### 🔧 Padrão de Organização
+## 📌 Padrões
+
+### 🔧 Organização
 
 Esta estrutura segue um **padrão hierárquico**, garantindo que **componentes filhos** permaneçam dentro do contexto de seus **componentes pais**, caso não sejam reutilizados globalmente. Isso ajuda na **organização do código**, evita poluição de pastas e melhora a manutenção.
 
@@ -46,144 +52,32 @@ Esta estrutura segue um **padrão hierárquico**, garantindo que **componentes f
 - Evita a necessidade de importar componentes filhos em locais desnecessários.
 
 #### 🔹 **Quando mover para um local mais genérico?**
-- Se um **componente filho for reutilizado** em outros lugares, ele deve ser movido para `src/components/ui`.
-- Exemplo: Se `DropdownItem` for usado fora do `Dropdown`, ele deveria estar em `src/components/ui/DropdownItem.tsx`.
+- Se um **componente filho for reutilizado** em outros lugares.
+- Exemplo: `LocaleDropdown` deve estar em `src/components/base/navigation` pois é um component contextual.
 
 ### 🎨 Reexportando Componentes Filhos
-Para evitar importações longas e garantir encapsulamento, os componentes filhos podem ser **reexportados via `index.ts` do pai**:
+Para evitar importações longas e garantir encapsulamento, os componentes filhos devem ser **reexportados via `index.ts` do pai**:
 ```tsx
-// src/components/ui/Dropdown/index.ts
-export { Dropdown } from "./Dropdown";
-export { DropdownItem } from "./DropdownItem";
+// src/components/base/navigation/dropdown/index.ts
+export { Dropdown } from "./container";
+export { DropdownItem } from "./item";
 ```
 
 Dessa forma, a importação fica mais simples:
 ```tsx
-import { Dropdown, DropdownItem } from "@/components/ui/Dropdown";
+import { Dropdown, DropdownItem } from "@/components/base/navigation/dropdown";
 ```
 
-## 🌐 Testes no Storybook
-O Storybook permite testar interações nos componentes usando a API `play()`, `userEvent` e `within` da Testing Library.
-
-### 🔍 Teste de clique em botão
-✅ Esse teste localiza o botão dentro do Storybook e simula um clique.
-
-```tsx
-export const Default: Story = {
-  args: {
-    variant: "primary",
-  },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = await canvas.findByRole("button", { name: /clique aqui/i });
-    await userEvent.click(button);
-  },
-};
-```
-
-### 🔍 Teste de formulário no Storybook
-✅ Simula um usuário preenchendo um formulário e clicando no botão de login.
-
-```tsx
-import { userEvent, within } from "@storybook/testing-library";
-import { LoginForm } from "./LoginForm";
-
-export const Default = {
-  args: {},
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.type(canvas.getByLabelText("E-mail"), "teste@email.com");
-    await userEvent.type(canvas.getByLabelText("Senha"), "123456");
-    await userEvent.click(canvas.getByRole("button", { name: /entrar/i }));
-  },
-};
-```
-
-
-## 🔌 Plugins Recomendados para VSCode
-Para melhorar a experiência de desenvolvimento, recomendamos instalar os seguintes plugins no Visual Studio Code:
-
-<table>
-  <thead>
-    <tr>
-      <th>Plugin</th>
-      <th>Descrição</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>MDX</td>
-      <td>Suporte aprimorado para arquivos .mdx</td>
-    </tr>
-    <tr>
-      <td>ESLint</td>
-      <td>Integração com ESLint para melhor linting</td>
-    </tr>
-    <tr>
-      <td>i18n Ally</td>
-      <td>Ferramenta para gerenciar traduções i18n</td>
-    </tr>
-    <tr>
-      <td>Auto Close Tag</td>
-      <td>Fecha automaticamente a tag</td>
-    </tr>
-    <tr>
-      <td>Auto Rename Tag</td>
-      <td>Renomeia automaticamente a tag de fechamento ao alterar a de abertura</td>
-    </tr>
-    <tr>
-      <td>Tailwind CSS IntelliSense</td>
-      <td>Sugestões inteligentes para Tailwind CSS</td>
-    </tr>
-    <tr>
-      <td>JavaScript (ES6) Code Snippets</td>
-      <td>Snippets úteis para ES6+</td>
-    </tr>
-  </tbody>
-</table>
-
-### ⚙️ Configurações Recomendadas
-Adicione as seguintes configurações no settings.json para melhorar a produtividade:
-
-```json
-{
-    "tailwindCSS.files.exclude": [
-        "**/.hg/**",
-        "**/.svn/**",
-        "**/.git/**",
-        "**/.next/**",
-        "**/.vscode/**",
-        "**/messages/**",
-        "**/.storybook/**",
-        "**/node_modules/**"
-    ],
-    "tailwindCSS.emmetCompletions": true,
-    "tailwindCSS.experimental.classRegex": [
-        [
-            "tv\\(([^)]*)\\)",
-            "[\"'`]([^\"'`]*).*?[\"'`]"
-        ]
-    ],
-    "editor.tabSize": 2,
-    "editor.insertSpaces": true,
-    "editor.formatOnPaste": false, 
-    "editor.formatOnSave": false,
-    "editor.codeActionsOnSave": { 
-        "source.fixAll": "always"
-    }
-}
-```
-
-## 📌 Padrões de Código
+### 📌 Código
 Para manter a consistência e a qualidade do código, siga estas diretrizes abaixo:
 
-### 1️⃣ Componentes
+#### 1️⃣ Componentes
 - Devem ser exportados de forma nomeada para facilitar a refatoração e a manutenção.
 - Devem ser funcionais (Não usar Class nem Arrow Functions).
 - O nome dos componentes devem ser em **PascalCase**.
 - Os componentes devem ser tipados corretamente, priorizando a **extensão** das propriedades **do elemento HTML principal**.
 
-#### ✔ Vantagens dessa abordagem:
+##### ✔ Vantagens dessa abordagem:
 
 - Componentes utilizando funções (Function Declaration):
   - Melhor legibilidade e debugging: O React DevTools exibe corretamente o nome do componente.
@@ -196,7 +90,7 @@ Para manter a consistência e a qualidade do código, siga estas diretrizes abai
   - Facilita o uso do ref quando necessário.
   - Mantém o código organizado e fácil de entender.
 
-#### Exemplos
+##### Exemplos
 
 ```tsx
 // ❌ ERRADO - Não utilizar arrow functions
@@ -241,127 +135,3 @@ export function Accordion({ title, isOpen, children, onToggle, ...rest }: Accord
   );
 }
 ```
-
-## 🌍 Snippets
-Aqui estão alguns snippets para agilizar o desenvolvimento de componentes no projeto:
-
-### 🔖 Criar um componente de formulário
-```json
-"Creates a Form component": {
-  "prefix": "component:form",
-  "body": [
-    "\"use client\";",
-    "",
-    "import { zodResolver } from \"@hookform/resolvers/zod\";",
-    "import { useTranslations } from \"next-intl\";",
-    "import { useTransition } from \"react\";",
-    "import { Controller, useForm } from \"react-hook-form\";",
-    "import { z } from \"zod\";",
-    "",
-    "import { useModal } from \"@/core/hooks/useModal\";",
-    "import { useZodTranslation } from \"@/core/hooks/useZodTranslation\";",
-    "import { useRouter } from \"@/i18n/navigation\";",
-    "",
-    "export function LoginForm() {",
-    "  const t = useTranslations();",
-    "  const router = useRouter();",
-    "  const translateError = useZodTranslation();",
-    "  const { openModal, closeModal } = useModal();",
-    "  const [isPending, startTransition] = useTransition();",
-    "",
-    "  const schema = z.object({});",
-    "",
-    "  type SchemaProps = z.infer<typeof schema>;",
-    "",
-    "  const {",
-    "    control,",
-    "    handleSubmit,",
-    "    formState: { errors },",
-    "  } = useForm<SchemaProps>({",
-    "    resolver: zodResolver(schema),",
-    "    defaultValues: {},",
-    "  });",
-    "",
-    "  async function onSubmit({ client, password, username }: SchemaProps) {",
-    "    startTransition(async () => {});",
-    "  }",
-    "",
-    "  return (",
-    "    <form onSubmit={handleSubmit(onSubmit)}>",
-    "    </form>",
-    "  )",
-    "}",
-    ""
-  ]
-},
-```
-
-### 🔖 Criar um componente que estende `<div>`
-```json
-"Creates a component that extends div": {
-  "prefix": "component:div",
-  "body": [
-      "import { tv } from \"tailwind-variants\";",
-      "",
-      "type BaseProps = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>;",
-      "",
-      "type $1Props = BaseProps & {}",
-      "",
-      "export function $1({ className, children, ...rest }: $1Props) {",
-      "  return <div className={style({ className })} {...rest}>{children}</div>",
-      "}",
-      "",
-      "const style = tv({",
-      "  base: \"\",",
-      "  variants: {},",
-      "})",
-      ""
-  ]
-},
-```
-
-### 📚 Criar um Story para um componente
-```json
-"Creates a component story": {
-  "prefix": "component:story",
-  "body": [
-    "import type { Meta, StoryObj } from \"@storybook/react\";",
-    "import { fn, userEvent, within } from \"@storybook/test\";",
-    "",
-    "import { ${1:componentName} } from \"./\";",
-    "",
-    "export const ActionsData = {};",
-    "",
-    "const meta = {",
-    "  tags: [\"autodocs\"],",
-    "  args: { ...ActionsData },",
-    "  title: \"${2:context}/${1:componentName}\",",
-    "  component: ${1:componentName},",
-    "  excludeStories: /.*Data$/,",
-    "  argTypes: { },",
-    "} satisfies Meta<typeof ${1:componentName}>;",
-    "",
-    "export default meta;",
-    "",
-    "type Story = StoryObj<typeof meta>;",
-    "",
-    "export const Default: Story = {",
-    "  args: {},",
-    "  play: async ({ canvasElement }) => {",
-    "    const canvas = within(canvasElement);",
-    "  }",
-    "}"
-  ]
-}
-```
-
-## 🔗 Links Úteis
-
-- 📖 [Biblioteca de Icones](https://react-icons.github.io/react-icons/search/)
-- 📖 [Next.js - Framework](https://nextjs.org/docs)
-- 📖 [NextIntl.js - Internacionalização](https://nextjs.org/docs)
-- 📖 [NextAuth.js - Authenticação](https://next-auth.js.org)
-- 📖 [Documentação do React](https://pt-br.react.dev)
-- 📖 [Documentação do Storybook](https://storybook.js.org/)
-- 📖 [Documentação do Tailwind CSS](https://tailwindcss.com/docs)
-- 📖 [Documentação do Tailwind Variants](https://www.tailwind-variants.org)
